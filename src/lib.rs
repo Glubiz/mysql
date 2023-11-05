@@ -74,6 +74,22 @@ pub async fn execute(query: &str, params_map: Option<Params>) -> Result<(), Box<
     }
 }
 
+pub trait Fetchable {
+    fn fetch<T: FromRow + Send>(&self) -> Result<Vec<T>, Box<dyn Error>>;
+}
+
+pub trait Deletable {
+    fn delete(&self) -> Result<(), Box<dyn Error>>;
+}
+
+pub trait Insertable {
+    fn insert(&self) -> Result<(), Box<dyn Error>>;
+}
+
+pub trait Updatable {
+    fn update(&self) -> Result<(), Box<dyn Error>>;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
